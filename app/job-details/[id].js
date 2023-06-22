@@ -19,7 +19,7 @@ import {
 } from "../../components";
 
 import { COLORS, SIZES, icons } from "../../constants";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import useFetch from "../../hook/useFetch";
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
@@ -35,7 +35,11 @@ const JobDetails = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  const onRefresh = () => {};
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  }, []);
 
   const displayTabContent = () => {
     switch (activeTab) {
